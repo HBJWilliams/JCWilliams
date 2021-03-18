@@ -1,4 +1,4 @@
 # JCWilliams
-<p> Here is some example work.</p>
+<p align="justify"> Here is some example work.</p>
 
 
