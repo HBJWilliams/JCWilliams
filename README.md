@@ -1,7 +1,7 @@
 # JCWilliams
 ## Covid_19_Total_Deaths.png
 <p align="justify"> 
-<br><br>
+<br>
  This chart comes from excel. It uses introductory statistics to demonstrate the probability of the death excess in 2020 occuring by chance.
 
 ## Covid-19 Demonstration.pdf 
