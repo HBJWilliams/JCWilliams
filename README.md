@@ -5,7 +5,7 @@
 
 ## Next Image 
 <p align="justify"> 
-<br><br>
+<br><br>I originally made this for my 90-year-old grandfather. He has stayed inside and been quite cautious, but I wanted to show him, without going into deep scientific detail, the evidence for _why_ he should continue to stay safe. 
  
 
 ## Next Image
