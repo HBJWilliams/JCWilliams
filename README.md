@@ -9,10 +9,11 @@
 <br>I originally made this for my 90-year-old grandfather. He has stayed inside and been quite cautious, but I wanted to show him, without going into deep scientific detail, the evidence for <i>why</i> he should continue to stay safe. 
 </p> 
 
-## Covid-19 Multiplot
+
+## Covid-19 HowDoWeKnow.pdf 
 <p align="justify"> 
-<br>This is the result of my-self taught techniques in R. THe data shown represents a 5x10 grid of subplots, one for each of the 50 states in the USA. Each plot shows the weekly deaths from all causes from 2014 to 2020. The R-Markdown code from which this pdf originates is posted here as well. 
-</p>
+<br>What started out as a project to help convince my grandfather to stay inside during the pandemic eventually transformed into a long and enjoyable process of learning R. Here, I show the results of analyzing data freely published by the CDC. Links to the source documents are also provided here.
+</p> 
 
 ### Errata
 <p align="justify"> 
