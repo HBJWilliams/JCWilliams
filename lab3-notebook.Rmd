@@ -1,0 +1,326 @@
+---
+title: "Laboratory 3"
+subtitle: "by Joshua Williams"
+output:
+  pdf_document: default
+  html_notebook: default
+  df_print: paged
+---
+<style>
+body {
+text-align: justify}
+</style>
+</head>
+<body>
+---
+
+# Load the packages
+
+```{r}
+library(tidyverse)
+library(RColorBrewer)
+```
+
+```{r include=FALSE}
+Tesla <- read.csv("C:/Users/HBJWi/Dropbox/Josh/AllSchooling/College/MyCollegeFolders/PLNU/AAPLNU SP21/MTH3063/labs/lab3/cleanTeslaBattery.csv", stringsAsFactors=TRUE)
+```
+
+
+## multiplot for brevity (not my code)
+
+```{r multiplot function}
+## This isn't my code, I just learned how to apply it online.
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+```
+
+# Question 3
+
+
+## part a
+
+```{r this shows the fill and no fill chart, message=FALSE, warning=FALSE,fig.cap="Compares chart with and without the use of `fill`"}
+Tesla$Submodel <- as.factor(Tesla$Submodel)
+g1 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM))+
+  geom_boxplot()+
+    labs(title = "Without `Fill`")
+ 
+g2 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+    labs(title = "With `Fill`")
+g3 <-multiplot(g1,g2,cols=2)
+#To make clean up and labeling easier for plots
+g3
+rm(g1,g2,g3)
+```
+
+
+
+## part b
+
+```{r fig.cap="Shows multiple optional colour palettes for the same data", message=FALSE, warning=FALSE}
+g1 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "Set1")+
+  ggtitle("palette = \'Set1\'")
+g2 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "RdBu")+
+  ggtitle("palette = \'RdBu\'")
+g3 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "YlGnBu")+
+  ggtitle("palette = \'YlGnBu\'")
+g4 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "Paired")+
+  ggtitle("palette = \'Paired\'")
+multiplot(g1,g2,g3,g4,cols=2)
+rm(g1,g2,g3,g4)
+```
+
+
+```{r warning = FALSE, message=FALSE, fig.cap="Shows multiple optional colour palettes for the same data examples from the lab script"}
+g1 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "Set1")+
+  ggtitle("palette = \'Set1\'")
+g2 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "RdBu")+
+  ggtitle("palette = \'RdBu\'")
+g3 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "YlGnBu")+
+  ggtitle("palette = \'YlGnBu\'")
+g4 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "Paired")+
+  ggtitle("palette = \'Paired\'")
+multiplot(g1,g2,g3,g4,cols=2)
+rm(g1,g2,g3,g4)
+```
+
+
+
+## part c
+
+```{r warning = FALSE, message=TRUE, fig.cap="show the data with added labels and a more descriptive title"}
+library(viridis)
+g1 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_viridis(discrete = TRUE, option = "viridis")+
+  ggtitle("Relationship between the Tesla Submodel and the Range (km)")+
+  xlab("Submodel of Tesla")+
+  ylab("Maximum Range (km)")
+g1
+```
+
+
+```{r warning=FALSE, fig.cap="Shows multiple optional colour palettes for the same data examples from the lab script"}
+library("viridis")
+g1 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_viridis(discrete = TRUE, option = "viridis")+
+  ggtitle("palette = \'viridis\'", subtitle="best for colourblindness")
+g2 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_viridis(discrete = TRUE, option = "magma")+
+  ggtitle("palette = \'magma\'")
+g3 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_viridis(discrete = TRUE, option = "plasma")+
+  ggtitle("palette = \'plasma\'")
+g4 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_boxplot()+
+  scale_fill_viridis(discrete = TRUE, option = "inferno")+
+  ggtitle("palette = \'inferno\'")
+multiplot(g1,g2,g3,g4,cols=2)
+rm(g1,g2,g3,g4)
+```
+## part d
+
+```{r warning = FALSE, fig.cap="The data are now in the form of a violin plot"}
+library("viridis")
+g1 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_violin()+
+  scale_fill_viridis(discrete = TRUE, option = "viridis")+
+  ggtitle("palette = \'viridis\'", subtitle="best for colourblindness")
+g2 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_violin()+
+  scale_fill_viridis(discrete = TRUE, option = "magma")+
+  ggtitle("palette = \'magma\'")
+g3 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_violin()+
+  scale_fill_viridis(discrete = TRUE, option = "plasma")+
+  ggtitle("palette = \'plasma\'")
+g4 <- ggplot(data=Tesla, aes(x=Submodel,y=MaxRangeKM, fill = Submodel))+
+  geom_violin()+
+  scale_fill_viridis(discrete = TRUE, option = "inferno")+
+  ggtitle("palette = \'inferno\'")
+multiplot(g1,g2,g3,g4,cols=2)
+rm(g1,g2,g3,g4)
+```
+
+## part e
+
+```{r fig.cap="Alternative Data Configuration of Data When Grouped By Model"}
+g1<- ggplot(data=Tesla,aes(x=Submodel, y = MaxRangeKM, fill = Model))+
+  geom_boxplot()+
+  ggtitle(label="Boxplot By Model")
+g1
+rm(g1)
+```
+### When may this be useful?
+Some patterns become hidden when grouping distinct groups of related data together. To avoid missing these patterns, it helps to group data in several different ways so as to see any patterns that may emerge. 
+
+# Question 4
+
+## Part a
+
+```{r fig.cap="different representations of the same data using geom_bar()", fig.height=9.0, fig.width=6.5}
+g1<-ggplot(data = Tesla, aes(x=Submodel, fill = Model))+
+  geom_bar()+
+  labs(title = "default setting for geom_bar()")
+g2<- ggplot(data = Tesla, aes(x=Submodel, fill = Model))+
+  geom_bar(aes(y=100*..count../sum(..count..)), position = 'dodge')+
+labs(title="dodge setting for geom_bar()")+
+  xlab("Submodel")+
+  ylab("percentage")
+g3<- ggplot(data = Tesla, aes(x=Submodel, fill = Model))+
+  geom_bar(position = 'fill')+
+  labs(title="fill setting for geom_bar()")
+multiplot(g1,g2,g3,cols=1)
+
+```
+
+
+# Question 5
+
+## part a
+
+```{r fig.cap = " demonstrates the ability to alter color schemes of the lines of best fit and the scatterplots from which that linear regression is derived", fig.width = 6.5, fig.height=6.5}
+g1 <- ggplot(data = Tesla, aes(x=AgeInDays, y = MileageKM))+
+  geom_point()+
+  ggtitle(label = "Simple Scatterplot")+
+  xlab("Age in Days")+
+  ylab("Mileage in Kilometers")
+g2 <- ggplot(data = Tesla, aes(x=AgeInDays, y = MileageKM))+
+  geom_point(col = 'lightblue')+
+  geom_smooth(method = "lm", color = "purple")+
+  ggtitle(label = "Scatterplot with Linear Regression")+
+  xlab("Age in Days")+
+  ylab("Mileage in Kilometers")
+
+multiplot(g1,g2,cols=1)
+```
+
+# Question 6
+
+## Which Models are more popular on which continent (what variable is this in the dataset?)?
+
+```{r fig.cap= "is the answer to question 6", fig.height=8.5, fig.width=6.5, message=FALSE, warning=FALSE}
+g1<- ggplot(data = Tesla, aes(x = Location, fill=Model))+
+  geom_bar()
+g2<- ggplot(data = Tesla, aes(x = Location, fill=Model))+
+  geom_bar(position = 'dodge')
+g3<- ggplot(data = Tesla, aes(x = Location, fill=Model))+
+  geom_bar(position = 'fill')
+multiplot(g1,g2,g3,cols=1)
+```
+
+
+# Question 7 
+
+## Do different continents have different daily driving patterns (MileagePerDay)?
+
+```{r fig.cap= "is the answer to question 7", fig.height=8.5, fig.width=6.5, message=FALSE, warning=FALSE}
+g1<- ggplot(data = Tesla, aes(x = Location, fill=MileagePerDay))+
+  geom_bar()
+g2<- ggplot(data = Tesla, aes(x = Location, fill=MileagePerDay))+
+  geom_bar(position = 'dodge')
+g3<- ggplot(data = Tesla, aes(x = Location, fill=MileagePerDay))+
+  geom_bar(position = 'fill')
+multiplot(g1,g2,g3,cols=1)
+```
+
+# Question 8 
+
+## Which Location tends to have older cars?
+
+```{r fig.cap="Shows the density function of each location. The center of mass of the density function indicates the indicates average age of each car.", fig.height=8.5, fig.width=6.5}
+library(reshape2)
+g1<- ggplot(data = Tesla)+
+  geom_density(mapping = aes(x=AgeInDays),size=2)+
+  facet_grid(Location~.)
+g1
+```
+
+
+```{r fig.cap="This shows the actual"}
+df <- data.frame(Location = Tesla$Location,
+                 AgeInDays= Tesla$AgeInDays)
+df1<- aggregate(df,by=list(df$Location),FUN=mean,na.rm=TRUE)
+df1 <- data.frame(Location = df1$Group.1,
+                  AgeInDays=df1$AgeInDays)
+
+#I couldn't figure out how to get this to work!
+#df2 <- aggregate(df,by=list(df$Location), FUN=median,na.rm=TRUE)
+
+knitr::kable(df1)
+```
+
+
+# Question 9
+
+## Which Submodels tend to be driven on the shortest daily drives?
+
+```{r warning = FALSE, message=FALSE}
+library("viridis")
+g1 <- ggplot(data = Tesla, aes(x=Submodel, y=MileagePerDay, fill=Submodel))+
+  geom_boxplot()+
+  scale_fill_brewer(palette= "Set1")
+g1
+```
+```{r fig.cap="Summary Means of The Shortest Miles Traveled By Geographic Location",message=FALSE, warning=FALSE}
+df<- data.frame(Location = Tesla$Location,
+           MileagePerDay=Tesla$MileagePerDay)
+df1 <- aggregate(df,by=list(df$Location),FUN=mean,na.rm=TRUE)
+df1<- data.frame(Location = df1$Group.1,
+                 MileagePerDay= df1$MileagePerDay)
+knitr::kable(df1)
+```
+
