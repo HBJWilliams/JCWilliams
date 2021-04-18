@@ -20,6 +20,11 @@
 <br>I asked my statistics professor about the curious case of North Carolina. He noted that, unlike all other subplots, the y-axis includes negative numbers. Since it is not possible to have negative deaths, we knew that something must be wrong with either the code or the data. Upon further analysis, it seemed that the CDC data from which the plots came did not have complete data.
 </p>
 
+## Lab3
+<p align="justify"> 
+<br>I demonstrate an example of one of my lab reports to demonstrate the usual level of work put into an ordinary assignment. Furthermore, you will find the markdown code for the pdf is also present.
+</p>
+
 
 
 
