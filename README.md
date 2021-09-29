@@ -30,7 +30,7 @@
 <br>
 </p>
 
-## \lambda_{Max} Regression Calculator
+## Lambda Max Regression Calculator
 <p align="justify"> 
 Lambda max regression is a common spectrophotochemical technique utilized to, among other things, infer the concentration of an analyte in a solution by constructing a calibration curve from known concentrations of an analyte. This spreadsheet automates the finding of the lambda max values for each data entry and computes 
 <br>
