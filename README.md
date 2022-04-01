@@ -6,7 +6,7 @@
 
 ## Covid-19 Demonstration.pdf 
 <p align="justify"> 
-<br>I originally made this for my 90-year-old grandfather. He has stayed inside and been quite cautious, but I wanted to show him, without going into deep scientific detail, the evidence for <i>why</i> he should continue to stay safe. 
+<br>I originally made this for my 90-year-old grandfather. He has stayed inside and been quite cautious, but I wanted to show him, without going into deep scientific detail, the evidence for <i>why</i> he should continue to stay safe.
 </p> 
 
 
@@ -32,7 +32,7 @@
 
 ## Lambda Max Regression Calculator
 <p align="justify"> 
-Lambda max regression is a common spectrophotochemical technique utilized to, among other things, infer the concentration of an analyte in a solution by constructing a calibration curve from known concentrations of an analyte. This spreadsheet automates the finding of the lambda max values for each data entry and computes 
+Lambda max regression is a common spectrophotochemical technique utilized to, among other things, infer the concentration of an analyte in a solution by constructing a calibration curve from known concentrations of an analyte. This spreadsheet automates the finding of the lambda max values for each data entry and computes a calibration curve.
 <br>
 </p>
 
