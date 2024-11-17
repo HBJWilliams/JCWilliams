@@ -23,9 +23,9 @@ library(tidyverse)
 ```
 
 ```{r hidden data sources, message=TRUE, include=FALSE}
-datasource1<-"C:/Users/HBJWi/Dropbox/Josh/AllSchooling/College/MyCollegeFolders/PLNU/AAPLNU SP21/MTH3063/labs/lab2/FakeData.csv"
-datasource2<-"C:/Users/HBJWi/Dropbox/Josh/AllSchooling/College/MyCollegeFolders/PLNU/AAPLNU SP21/MTH3063/labs/lab2/ClassSurveysFA2020.csv"
-datasource3 <-"C:/Users/HBJWi/Dropbox/Josh/AllSchooling/College/MyCollegeFolders/PLNU/AAPLNU SP21/MTH3063/labs/lab2/ClassSurveysSP2021.csv"
+datasource1<-"C:/Users/.../PLNU/AAPLNU SP21/MTH3063/labs/lab2/FakeData.csv"
+datasource2<-"C:/Users/.../PLNU/AAPLNU SP21/MTH3063/labs/lab2/ClassSurveysFA2020.csv"
+datasource3 <-"C:/Users/.../PLNU/AAPLNU SP21/MTH3063/labs/lab2/ClassSurveysSP2021.csv"
 ```
 
 ```{r upload data stuff}
