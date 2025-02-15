@@ -124,6 +124,7 @@ def clean_data_and_specify_data_types(dataframe: pd.DataFrame) -> pd.DataFrame:
             "Tobobe": "Tobobe",
             "Valle Escondido": "Valle Escondido",
         }
+    # intentionally using `replace` instead of `map` method because `replace` retains values as-is if not in the replacement dictionary
     dataframe["Location of Visit"] = dataframe["Location of Visit"].replace(
         to_replace=locationNameCorrectionDict
     )
