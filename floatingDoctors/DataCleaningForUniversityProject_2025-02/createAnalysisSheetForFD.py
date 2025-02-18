@@ -41,6 +41,7 @@ def keep_needed_columns_and_rows(dataframe: pd.DataFrame) -> pd.DataFrame:
         # "Date of Birth",  # specified as date
         "Sex",  # specified as enum type
         "Age",
+        "Chronic Medication",  # No cleaning needed
     ]
     # create a dataframe with columns I actually need. Filter data by age >= 35.
     dataframe = (
@@ -55,8 +56,9 @@ def clean_data_and_specify_data_types(dataframe: pd.DataFrame) -> pd.DataFrame:
         "Patient Consent": bool,
         "Visit Type": pd.CategoricalDtype(),
         "Sex": pd.CategoricalDtype(),
-        "Location of Visit": pd.CategoricalDtype(),
+        # "Location of Visit": pd.CategoricalDtype(), # categorical type setting done later to avoid errors and FutureWarnings. Not yet a categorical variable, but it will
         "Patient Linked": pd.CategoricalDtype(),
+        "Chronic Medication": pd.CategoricalDtype(),
     }
     dataframe = dataframe.astype(typeDict)
     dateTimeColumns: list[str] = [
@@ -95,9 +97,11 @@ def clean_data_and_specify_data_types(dataframe: pd.DataFrame) -> pd.DataFrame:
             "Bajo la Esperanza": "Bajo la Esperanza",
             "Base camp": "Base",
             "Base Clinic": "Base",
+            "Base clinic": "Base",
             "Bisira": "Bisira",
             "Buena Esperanza": "Buena Esperanza",
             "Cayo de Agua": "Cayo de Agua",
+            "Cayo De Agua": "Cayo de Agua",
             "Cero Brujo": "Cerro Brujo",
             "Cerro Brujo": "Cerro Brujo",
             "Ensanada": "Ensenada",
@@ -106,6 +110,7 @@ def clean_data_and_specify_data_types(dataframe: pd.DataFrame) -> pd.DataFrame:
             "La Sabana": "La Sabana",
             "Loma Partida": "Loma Partida",
             "Nance de Risco": "Nance de Risco",
+            "Nance De Risco": "Nance de Risco",
             "Norteno": "Norteno",
             "Playa Lorenzo": "Playa Lorenzo",
             "Playa Verde": "Playa Verde",
@@ -124,10 +129,20 @@ def clean_data_and_specify_data_types(dataframe: pd.DataFrame) -> pd.DataFrame:
             "Tobobe": "Tobobe",
             "Valle Escondido": "Valle Escondido",
         }
-    # intentionally using `replace` instead of `map` method because `replace` retains values as-is if not in the replacement dictionary
-    dataframe["Location of Visit"] = dataframe["Location of Visit"].replace(
-        to_replace=locationNameCorrectionDict
-    )
+    # the pandas series method ser.cat.rename_categories is used in to future data cleaning step that
+    # reduces the number of categories (i.e. Baho Cedro  & Baja Cedro --> Baho Cedro)
+    # to avoid any FutureWarning depracation warnings and to ensure compatability with future versions of Pandas.
+    if set(dataframe["Location of Visit"].dropna()) == set(
+        locationNameCorrectionDict.keys()
+    ):
+        # map will turn elements not in the keys of the dict into na values, which is why this check takes place
+        dataframe["Location of Visit"] = dataframe["Location of Visit"].map(
+            locationNameCorrectionDict
+        )
+    else:
+        raise ValueError(
+            "There are some missing values found in the location of visit column that are not mapped in the correction dictionary"
+        )
     return dataframe
 
 
